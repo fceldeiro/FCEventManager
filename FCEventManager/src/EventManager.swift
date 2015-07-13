@@ -13,6 +13,10 @@ public class EventManager<T> {
   
   private let handlerMapTable  = NSMapTable(keyOptions: NSPointerFunctionsWeakMemory, valueOptions: NSPointerFunctionsStrongMemory)
   
+  public init(){
+    
+  }
+  
   
   public func addListener(owner:NSObject, evaluation:(event:T)->Bool,callback:(event:T)->Void) ->EventCallback<T>{
     
