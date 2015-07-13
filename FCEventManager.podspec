@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.summary = 'Elegant Event Manager in Swift'
   s.homepage = 'https://github.com/fceldeiro/FCEventManager'
   s.authors = { 'Fabian Celdeiro' => 'me@me.com'}
-  s.source = { :git => 'https://github.com/fceldeiro/FCEventManager.git'}
+  s.source = { :git => 'https://github.com/fceldeiro/FCEventManager.git', :tag => 'v0.0.1'}
   s.ios.deployment_target = '8.0'
   #s.osx.deployment_target = '10.9'
 
