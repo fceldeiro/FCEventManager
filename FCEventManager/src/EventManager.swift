@@ -9,12 +9,12 @@
 import Foundation
 
 
-class EventManager<T> {
+public class EventManager<T> {
   
   private let handlerMapTable  = NSMapTable(keyOptions: NSPointerFunctionsWeakMemory, valueOptions: NSPointerFunctionsStrongMemory)
   
   
-  func addListener(owner:NSObject, evaluation:(event:T)->Bool,callback:(event:T)->Void) ->EventCallback<T>{
+  public func addListener(owner:NSObject, evaluation:(event:T)->Bool,callback:(event:T)->Void) ->EventCallback<T>{
     
     //Callback may not be needed
     var handler = EventCallback<T>(evaluation: evaluation, callback: callback)
@@ -49,7 +49,7 @@ class EventManager<T> {
     
   }
   
-  func removeHandler(handler:EventCallback<T>){
+  public func removeHandler(handler:EventCallback<T>){
     
     var allObjects:Array = handlerMapTable.keyEnumerator().allObjects
     
@@ -72,14 +72,14 @@ class EventManager<T> {
     }
   }
   
-  func removeListener(owner:NSObject){
+  public func removeListener(owner:NSObject){
     
     handlerMapTable.removeObjectForKey(owner)
     println(handlerMapTable)
     
   }
   
-  func triggerEvent(newEvent:T){
+  public func triggerEvent(newEvent:T){
     
     /// Checking all handlers
     println("")

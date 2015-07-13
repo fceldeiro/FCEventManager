@@ -8,7 +8,7 @@
 
 import Foundation
 
-class EventCallback<T>  : NSObject {
+public class EventCallback<T>  : NSObject {
   
   let evaluation : (event:T) -> Bool
   let callback : (event:T) -> Void
