@@ -1,5 +1,5 @@
 # FCEventManager
-Library listen for custom events with very little effort.
+Library to listen custom events with very little effort.
 
 
 Create a custom event class.
