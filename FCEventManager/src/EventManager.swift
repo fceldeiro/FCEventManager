@@ -11,14 +11,14 @@ import Foundation
 
 public class EventManager<T> {
   
-  private let handlerMapTable  = NSMapTable(keyOptions: NSPointerFunctionsWeakMemory, valueOptions: NSPointerFunctionsStrongMemory)
+  private let handlerMapTable  = NSMapTable(keyOptions: NSPointerFunctionsWeakMemory | NSPointerFunctionsObjectPointerPersonality, valueOptions: NSPointerFunctionsStrongMemory)
   
   public init(){
     
   }
   
   
-  public func addListener(owner:NSObject, evaluation:(event:T)->Bool,callback:(event:T)->Void) ->EventCallback<T>{
+  public func addListener(owner:NSObjectProtocol, evaluation:(event:T)->Bool,callback:(event:T)->Void) ->EventCallback<T>{
     
     //Callback may not be needed
     var handler = EventCallback<T>(evaluation: evaluation, callback: callback)
