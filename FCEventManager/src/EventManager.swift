@@ -11,7 +11,7 @@ import Foundation
 
 public class EventManager<T> {
   
-  private let handlerMapTable  = NSMapTable(keyOptions: NSPointerFunctionsWeakMemory | NSPointerFunctionsObjectPointerPersonality, valueOptions: NSPointerFunctionsStrongMemory)
+  private let handlerMapTable  = NSMapTable(keyOptions: [NSPointerFunctionsOptions.WeakMemory, NSPointerFunctionsOptions.ObjectPointerPersonality], valueOptions: NSPointerFunctionsOptions.StrongMemory)
   
   public init(){
     
@@ -21,15 +21,15 @@ public class EventManager<T> {
   public func addListener(owner:NSObjectProtocol, evaluation:(event:T)->Bool,callback:(event:T)->Void) ->EventCallback<T>{
     
     //Callback may not be needed
-    var handler = EventCallback<T>(evaluation: evaluation, callback: callback)
+    let handler = EventCallback<T>(evaluation: evaluation, callback: callback)
     
     
     //How many do i have before executing all
     if let handlers:NSMutableArray = handlerMapTable.objectForKey(owner) as? NSMutableArray {
-      println("Handlers count before \(handlers.count)")
+      print("Handlers count before \(handlers.count)")
     }
     else{
-      println("no handlers")
+      print("no handlers")
     }
     
     
@@ -46,7 +46,7 @@ public class EventManager<T> {
     
     //How many do i have after doing my logic
     if let handlers:NSMutableArray = handlerMapTable.objectForKey(owner) as? NSMutableArray {
-      println("Handlers count after \(handlers.count)")
+      print("Handlers count after \(handlers.count)")
     }
     
     return handler
@@ -59,11 +59,11 @@ public class EventManager<T> {
     
     for var i=allObjects.count-1 ; i>=0 ; i-- {
       
-      var owner: NSObject = allObjects[i] as! NSObject
+      let owner: NSObject = allObjects[i] as! NSObject
       
-      if var handlers:NSMutableArray = handlerMapTable.objectForKey(owner) as? NSMutableArray {
+      if let handlers:NSMutableArray = handlerMapTable.objectForKey(owner) as? NSMutableArray {
         for var j=handlers.count-1 ; j>=0 ; j-- {
-          var handlerInCollection = handlers[j] as! EventCallback<T>
+          let handlerInCollection = handlers[j] as! EventCallback<T>
           if (handler === handlerInCollection){
             handlers.removeObjectAtIndex(j)
           }
@@ -79,17 +79,17 @@ public class EventManager<T> {
   public func removeListener(owner:NSObject){
     
     handlerMapTable.removeObjectForKey(owner)
-    println(handlerMapTable)
+    print(handlerMapTable)
     
   }
   
   public func triggerEvent(newEvent:T){
     
     /// Checking all handlers
-    println("")
-    println("Triggering event:");
-    println(newEvent)
-    println("")
+    print("")
+    print("Triggering event:");
+    print(newEvent)
+    print("")
     
     let allObjects:NSArray = handlerMapTable.keyEnumerator().allObjects
     
