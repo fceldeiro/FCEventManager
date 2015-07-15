@@ -21,7 +21,7 @@ public class EventManager<T> {
   public func addListener(owner:NSObjectProtocol, evaluation:(event:T)->Bool,callback:(event:T)->Void) ->EventCallback<T>{
     
     //Callback may not be needed
-    var handler = EventCallback<T>(evaluation: evaluation, callback: callback)
+    let handler = EventCallback<T>(evaluation: evaluation, callback: callback)
     
     
     //How many do i have before executing all
@@ -59,11 +59,11 @@ public class EventManager<T> {
     
     for var i=allObjects.count-1 ; i>=0 ; i-- {
       
-      var owner: NSObject = allObjects[i] as! NSObject
+      let owner: NSObject = allObjects[i] as! NSObject
       
-      if var handlers:NSMutableArray = handlerMapTable.objectForKey(owner) as? NSMutableArray {
+      if let handlers:NSMutableArray = handlerMapTable.objectForKey(owner) as? NSMutableArray {
         for var j=handlers.count-1 ; j>=0 ; j-- {
-          var handlerInCollection = handlers[j] as! EventCallback<T>
+          let handlerInCollection = handlers[j] as! EventCallback<T>
           if (handler === handlerInCollection){
             handlers.removeObjectAtIndex(j)
           }
