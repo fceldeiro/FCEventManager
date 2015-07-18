@@ -81,11 +81,7 @@ class EventManagerViewController: UIViewController {
         println("Event from shearrived")
     }))
     
-    /*
-    for handler in handlers{
-      eventManager.removeHandler(handler)
-    }
-    */
+
     
   }
   
