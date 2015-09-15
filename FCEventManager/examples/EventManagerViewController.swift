@@ -37,15 +37,15 @@ class EventManagerViewController: UIViewController {
     labelResult.text = ""
   }
   @IBAction func onButtonEmitNewEventPressed(sender: UIButton) {
-    var eventText = CustomEvent(identifier: "xxx-test", from: "me", to: "she")
+    let eventText = CustomEvent(identifier: "xxx-test", from: "me", to: "she")
     eventManager.triggerEvent(eventText)
     
   }
   
   func launchCustomEvents(){
     
-    var eventText = CustomEvent(identifier: "xxx-test", from: "me", to: "she")
-    var eventImage = CustomEvent(identifier: "xxx-test-image", from: "me", to: "she")
+    let eventText = CustomEvent(identifier: "xxx-test", from: "me", to: "she")
+    let eventImage = CustomEvent(identifier: "xxx-test-image", from: "me", to: "she")
     
     eventManager.triggerEvent(eventText)
     eventManager.triggerEvent(eventImage)
@@ -53,9 +53,6 @@ class EventManagerViewController: UIViewController {
     
   }
   func addListeners(){
-    
-    
-    var array = Array<Int>()
     
     var handlers = [EventCallback<CustomEvent>]()
     
@@ -70,7 +67,7 @@ class EventManagerViewController: UIViewController {
         if let weakSelfUnwrapped = weakSelf{
           weakSelfUnwrapped.labelResult.text = event.from
         }
-        println("Event from me arrived")
+        print("Event from me arrived")
     }))
     
     
@@ -78,7 +75,7 @@ class EventManagerViewController: UIViewController {
     handlers.append(eventManager.addListener(self, evaluation: { (event:CustomEvent) -> Bool in
       return event.from == "she"
       }, callback: { (event:CustomEvent) -> Void in
-        println("Event from shearrived")
+        print("Event from shearrived")
     }))
     
 

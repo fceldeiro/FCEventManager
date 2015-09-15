@@ -11,17 +11,26 @@ import Foundation
 
 public class EventManager<T> {
   
-  private let handlerMapTable  = NSMapTable(keyOptions: NSPointerFunctionsWeakMemory | NSPointerFunctionsObjectPointerPersonality, valueOptions: NSPointerFunctionsStrongMemory)
+  private let handlerMapTable  = NSMapTable(keyOptions: [NSPointerFunctionsOptions.WeakMemory, NSPointerFunctionsOptions.ObjectPointerPersonality], valueOptions: NSPointerFunctionsOptions.StrongMemory)
   
   public init(){
     
   }
-
+  
   
   public func addListener(owner:NSObjectProtocol, evaluation:(event:T)->Bool,callback:(event:T)->Void) ->EventCallback<T>{
     
     //Callback may not be needed
     let handler = EventCallback<T>(evaluation: evaluation, callback: callback)
+    
+    //How many do i have before executing all
+    if let handlers:NSMutableArray = handlerMapTable.objectForKey(owner) as? NSMutableArray {
+      print("Handlers count before \(handlers.count)")
+    }
+    else{
+      print("no handlers")
+    }
+    
     
     if  (handlerMapTable.objectForKey(owner) != nil){
       if let handlers:NSMutableArray = handlerMapTable.objectForKey(owner) as? NSMutableArray{
@@ -33,7 +42,11 @@ public class EventManager<T> {
       handlerMapTable.setObject(NSMutableArray(object: handler), forKey: owner)
     }
     
-  
+    //How many do i have after doing my logic
+    if let handlers:NSMutableArray = handlerMapTable.objectForKey(owner) as? NSMutableArray {
+      print("Handlers count after \(handlers.count)")
+    }
+    
     return handler
     
   }
@@ -44,7 +57,7 @@ public class EventManager<T> {
     
     for var i=allObjects.count-1 ; i>=0 ; i-- {
       
-      let owner: NSObjectProtocol = allObjects[i] as! NSObjectProtocol
+      let owner: NSObject = allObjects[i] as! NSObject
       
       if let handlers:NSMutableArray = handlerMapTable.objectForKey(owner) as? NSMutableArray {
         for var j=handlers.count-1 ; j>=0 ; j-- {
@@ -64,21 +77,10 @@ public class EventManager<T> {
   public func removeListener(owner:NSObjectProtocol){
     
     handlerMapTable.removeObjectForKey(owner)
-  //  println(handlerMapTable)
     
   }
   
   public func triggerEvent(newEvent:T){
-    
-    /// Checking all handlers
-    
-    /*
-    println("")
-    println("Triggering event:");
-    println(newEvent)
-    println("")
-    */
-    
     let allObjects:NSArray = handlerMapTable.keyEnumerator().allObjects
     
     for key in allObjects{

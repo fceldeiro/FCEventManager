@@ -32,7 +32,7 @@ class FCEventManagerTests: XCTestCase {
       }
       
       override func  isEqual(object: AnyObject?) -> Bool {
-        var target = object! as! CustomObject
+        let target = object! as! CustomObject
         return target.string == self.string
       
       }
@@ -44,6 +44,7 @@ class FCEventManagerTests: XCTestCase {
       }
     }
     
+    /*
     var eventManager = EventManager<CustomObject>()
     
     var customObjectA = CustomObject(string: "A")
@@ -52,12 +53,13 @@ class FCEventManagerTests: XCTestCase {
     let isEqual = customObjectA.isEqual(customObjectB)
     let isHashEqual = customObjectA.hash == customObjectB.hash
     
-    var handlerMapTable  = NSMapTable(keyOptions: NSPointerFunctionsWeakMemory  , valueOptions: NSPointerFunctionsStrongMemory)
+    var handlerMapTable  = NSMapTable(keyOptions: NSPointerFunctionsOptions.WeakMemory  , valueOptions: NSPointerFunctionsOptions.StrongMemory)
     
     handlerMapTable.setObject("A", forKey: customObjectA)
-    println(handlerMapTable.count)
+    print(handlerMapTable.count)
     handlerMapTable.setObject("B", forKey: customObjectB)
-    println(handlerMapTable.count)
+    print(handlerMapTable.count)
+    */
 
     
   }
