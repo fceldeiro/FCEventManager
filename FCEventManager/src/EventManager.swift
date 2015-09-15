@@ -16,14 +16,12 @@ public class EventManager<T> {
   public init(){
     
   }
-
+  
   
   public func addListener(owner:NSObjectProtocol, evaluation:(event:T)->Bool,callback:(event:T)->Void) ->EventCallback<T>{
     
     //Callback may not be needed
     let handler = EventCallback<T>(evaluation: evaluation, callback: callback)
-<<<<<<< HEAD
-    
     
     //How many do i have before executing all
     if let handlers:NSMutableArray = handlerMapTable.objectForKey(owner) as? NSMutableArray {
@@ -33,8 +31,6 @@ public class EventManager<T> {
       print("no handlers")
     }
     
-=======
->>>>>>> master
     
     if  (handlerMapTable.objectForKey(owner) != nil){
       if let handlers:NSMutableArray = handlerMapTable.objectForKey(owner) as? NSMutableArray{
@@ -46,15 +42,11 @@ public class EventManager<T> {
       handlerMapTable.setObject(NSMutableArray(object: handler), forKey: owner)
     }
     
-<<<<<<< HEAD
     //How many do i have after doing my logic
     if let handlers:NSMutableArray = handlerMapTable.objectForKey(owner) as? NSMutableArray {
       print("Handlers count after \(handlers.count)")
     }
     
-=======
-  
->>>>>>> master
     return handler
     
   }
@@ -65,11 +57,7 @@ public class EventManager<T> {
     
     for var i=allObjects.count-1 ; i>=0 ; i-- {
       
-<<<<<<< HEAD
       let owner: NSObject = allObjects[i] as! NSObject
-=======
-      let owner: NSObjectProtocol = allObjects[i] as! NSObjectProtocol
->>>>>>> master
       
       if let handlers:NSMutableArray = handlerMapTable.objectForKey(owner) as? NSMutableArray {
         for var j=handlers.count-1 ; j>=0 ; j-- {
@@ -89,32 +77,10 @@ public class EventManager<T> {
   public func removeListener(owner:NSObjectProtocol){
     
     handlerMapTable.removeObjectForKey(owner)
-<<<<<<< HEAD
-    print(handlerMapTable)
-=======
-  //  println(handlerMapTable)
->>>>>>> master
     
   }
   
   public func triggerEvent(newEvent:T){
-    
-    /// Checking all handlers
-<<<<<<< HEAD
-    print("")
-    print("Triggering event:");
-    print(newEvent)
-    print("")
-=======
-    
-    /*
-    println("")
-    println("Triggering event:");
-    println(newEvent)
-    println("")
-    */
->>>>>>> master
-    
     let allObjects:NSArray = handlerMapTable.keyEnumerator().allObjects
     
     for key in allObjects{
